@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Silky – 15-150 Interactive Proof System</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="icon" href="static/jscoq+64bit/frontend/classic/images/favicon.png">
+
+  <style>
+    body {
+      visibility: hidden;
+    }
+
+    /* FOUC avoidance */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../static/jscoq+64bit/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="../static/jscoq+64bit/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/jscoq+64bit/node_modules/katex/dist/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/jscoq+64bit/frontend/classic/css/landing-page.css">
+  <link rel="stylesheet" type="text/css" href="../static/jscoq+64bit/frontend/classic/css/kbd.css">
+</head>
+
+<body class="jscoq-main">
+  <div id="rm" class="toggled">
+    <div id="code-wrapper">
+      <div id="document-wrapper">
+        <!------------------------------->
+        <!--   N A V   B A R           -->
+        <!------------------------------->
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand"><img src="../static/jscoq+64bit/frontend/classic/images/favicon.png"></a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!------------------------------->
+
+        <div id="document">
+          <div>
+            <h1 style="text-align: center;"><span class="jscoq-name">Feedback Questionnaire</span></h1>
+
+            <h5 class="interim" style="color:crimson">
+                Thank you for completing this test of the Silky interface for proof-writing. We greatly appreciate you for taking the time to complete
+                this test.
+            </h5>
+
+            <h5 class="interim" style="color:crimson">
+                We highly encourage you to complete the questionnaire linked below to provide feedback on your experience
+                with the interface and any suggestions that can be used to improve the system.
+            </h5>
+
+            <a href="https://forms.gle/JEzxGvUiekdrQ8gX9" style="display: grid; margin-top: 2em; font-size: large; text-align: center;">Questionnaire</a>
+          </div> <!-- /#panel body -->
+
+        </div> <!-- /#document -->
+      </div> <!-- /#document-wrapper -->
+    </div> <!-- /#code-wrapper -->
+  </div> <!-- /#ide-wrapper -->
+
+  <script type="module">
+    import { JsCoq } from '../static/jscoq+64bit/jscoq.js';
+
+    if (!localStorage['scratchpad.last_filename'])
+      setTimeout(() => document.body.classList.add('welcome'), 1500);
+
+    var jscoq_ids = ['.intro', '.code'];
+    var jscoq_opts = {
+      implicit_libs: false,
+      focus: false,
+      editor: { mode: { 'company-coq': true } },
+      init_pkgs: ['coq','stringSml','boolSml','charSml','IEEERealSml','intSml','listPairSml',
+        'listSml','notationsSml','optionSml','realSml','stringCvtSml', 'equations'],
+      all_pkgs: ['coq', 'equations', 'stringSml','boolSml','charSml','IEEERealSml','intSml','listPairSml',
+        'listSml','notationsSml','optionSml','realSml','stringCvtSml']
+    };
+
+    JsCoq.start(jscoq_ids, jscoq_opts).then(res => {
+      /* Global reference */
+      window.coq = res;
+    });
+  </script>
+</body>
+
+</html>

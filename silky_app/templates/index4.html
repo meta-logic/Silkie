@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Silky – 15-150 Interactive Proof System</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link rel="icon" href="static/jscoq+64bit/frontend/classic/images/favicon.png">
+
+    <style>body { visibility: hidden; } /* FOUC avoidance */</style>
+    <link rel="stylesheet" type="text/css" href="/static/jscoq+64bit/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/static/jscoq+64bit/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/jscoq+64bit/node_modules/katex/dist/katex.min.css">
+    <link rel="stylesheet" type="text/css" href="static/jscoq+64bit/frontend/classic/css/landing-page.css">
+    <link rel="stylesheet" type="text/css" href="static/jscoq+64bit/frontend/classic/css/kbd.css">
+  </head>
+
+  <body class="jscoq-main">
+    <div id="ide-wrapper" class="toggled">
+    <div id="code-wrapper">
+    <div id="document-wrapper">
+      <!------------------------------->
+      <!--   N A V   B A R           -->
+      <!------------------------------->
+      <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand"><img src="static/jscoq+64bit/frontend/classic/images/favicon.png"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarAbout" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  About
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#team">jsCoq Dev Team</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="https://coq.inria.fr">Coq Proof Assistant</a></li>
+                  <li><a class="dropdown-item" href="https://github.com/cpitclaudel/company-coq">company-coq</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarExamples" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Examples
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/ext/sf"><img class="symbol-book" src="/static/jscoq+64bit/frontend/classic/images/book.svg">Software Foundations</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <a id="scratchpad" href="examples/scratchpad.html" title="Open scratchpad">
+          <span class="newcomer scratchpad-tip">open the scratchpad<br/>to start editing</span>
+        </a>
+      </nav>
+      <!------------------------------->
+    
+    <div id="document">
+    <div>
+      <h3>Welcome to the <span class="jscoq-name">15-150</span> Interactive Proof System!</h3>
+
+      {% if txt1 %}
+      <textarea class="snippet">
+{% for line in txt1 %}{{line}}{% endfor %}
+</textarea>
+
+<textarea class="snippet">
+(* Datatype Definitions *)
+
+{% for line in txt2 %}{{line}}{% endfor %}
+</textarea>
+
+<textarea class="snippet">
+{% for line in txt3 %}{{line}}{% endfor %}
+</textarea>
+
+<textarea class="snippet">
+(* Function Definitions *)
+
+{% for line in txt4 %}{{line}}{% endfor %}
+</textarea>
+
+<textarea class="snippet">
+(* Theorems *)
+
+Theorem test: forall n : Z, n = n.
+</textarea>
+
+{% else %}
+      <textarea class="snippet">
+From stringSml Require Import stringSml.
+From IEEERealSml Require Import IEEERealSml.
+From listPairSml Require Import listPairSml.
+From stringCvtSml Require Import stringCvtSml.
+From intSml Require Import intSml.
+From boolSml Require Import boolSml.
+From optionSml Require Import optionSml.
+From listSml Require Import listSml.
+From charSml Require Import charSml.
+From notationsSml Require Import notationsSml.
+From realSml Require Import realSml.
+From Coq Require Import Lia.
+From Equations Require Import Equations.
+</textarea>
+
+<textarea class="snippet">
+</textarea>
+
+<textarea class="snippet" id="inductive">
+</textarea>
+
+<textarea class="snippet">
+</textarea>
+<textarea class="snippet">
+(* Theorems *)
+
+Theorem test: forall n : Z, n = n.
+</textarea>
+{% endif %}
+  
+      <h4>Quick start</h4>
+      <p>
+        Use the <a href="examples/scratchpad.html">scratchpad <span class="scratchpad-small"></span></a>
+        for a fresh page to write your proofs on.
+        <span class="jscoq-name">jsCoq</span> provides basic UI for running
+        and inspecting proofs, similar to IDEs such as <a href="https://coq.inria.fr/refman/practical-tools/coqide.html">CoqIDE</a>,
+        <a href="https://proofgeneral.github.io/">Proof General</a>,
+        and <a href="https://github.com/coq-community/vscoq">VSCoq</a>.
+      </p>
+  
+      <h5>Actions</h5>
+      <table class="doc-actions">
+        <tr><th>Button</th><th>Key binding</th><th>Action</th></tr>
+        <tr>
+          <td><img src="/static/jscoq+64bit/frontend/classic/images/power-button-512-black.png" height="20px"></td>
+          <td class="has-kbd"><kbd>F8</kbd></td>
+          <td>Toggles the goal panel.</td>
+        </tr>
+        <tr>
+          <td><img src="/static/jscoq+64bit/frontend/classic/images/down.png" height="15px"><img src="/static/jscoq+64bit/frontend/classic/images/up.png" height="15px"></td>
+          <td class="has-kbd">
+            <kbd>Alt</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd> or<br/>
+            <kbd>Alt</kbd>+<kbd>N</kbd>/<kbd>P</kbd>
+          </td>
+          <td>Move through the proof.</td>
+        </tr>
+        <tr>
+          <td><img src="/static/jscoq+64bit/frontend/classic/images/to-cursor.png" height="20px"></td>
+          <td class="has-kbd">
+            <kbd>Alt</kbd>+<kbd>Enter</kbd> or<br/> <kbd>Ctrl</kbd>+<kbd>Enter</kbd><br/>
+            (⌘ on Mac)
+          </td>
+          <td>Run (or go back) to the current point.</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="has-kbd">
+            <kbd>Ctrl</kbd>+<img class="symbol-mouse" src="/static/jscoq+64bit/frontend/classic/images/pointer.svg">
+          </td>
+          <td>Hover executed statements to peek at the proof state after each step.</td>
+        </tr>
+      </table>
+      <h5>Creating your own proof scripts</h5>
+      <p>
+        The <a href="examples/scratchpad.html">scratchpad</a> offers simple, local
+        storage functionality. It also allows you to share your development with
+        other users in a manner that is similar to Pastebin.
+      </p>
+      <h5>There's more</h5>
+      <p>
+        See the <a href="https://github.com/jscoq/jscoq/tree/v8.16/docs">official docs</a>
+        on GitHub for more details on using, building, embedding, and integrating
+        <span class="jscoq-name">jsCoq</span> in your developments.
+      </p>
+  
+      <p>
+        <span class="jscoq-name">jsCoq</span> comes with a variety of addon packages,
+        including Coq's standard library and the
+        <a href="https://math-comp.github.io">mathematical components</a>
+        library.
+        Feel free to experiment, and let us know if you have any suggestions
+        and/or when you have done something cool with <span class="jscoq-name">jsCoq</span>.
+        😎
+      </p>
+      <p>
+      <i>¡Salut!</i>
+    </p>
+    </div> <!-- /#panel body -->
+    <div id="team">
+      <a name="team"></a>
+        <p><i>The dev team</i></p>
+      <ul>
+        <li>
+          <a href="https://www.irif.fr/~gallego/">Emilio Jesús Gallego Arias</a>
+          (<a href="https://www.inria.fr">Inria</a>,
+           <a href="https://u-paris.fr">Université de Paris</a>,
+           <a href="https://www.irif.fr">IRIF</a>)
+        </li>
+        <li>
+          <a href="https://www.cs.technion.ac.il/~shachari/">Shachar Itzhaky</a>
+          (<a href="https://cs.technion.ac.il">Technion</a>)
+        </li>
+      </ul>
+      <p><i>Contributors</i></p>
+      <ul>
+        <li>
+          Benoît Pin
+          (<a href="https://www.cri.ensmp.fr/">CRI</a>,
+           <a href="http://www.mines-paristech.eu">MINES ParisTech</a>)
+        </li>
+      </ul>
+    </div>
+    </div> <!-- /#document -->
+    </div> <!-- /#document-wrapper -->
+    </div> <!-- /#code-wrapper -->
+    </div> <!-- /#ide-wrapper -->
+
+  <script type="module">
+    import { JsCoq } from '/static/jscoq+64bit/jscoq.js';
+
+    if (!localStorage['scratchpad.last_filename'])
+      setTimeout(() => document.body.classList.add('welcome'), 1500);
+
+    var jscoq_ids  = ['.snippet'];
+    var jscoq_opts = {
+        implicit_libs: false,
+        focus: false,
+        editor: { mode: { 'company-coq': true }, lineNumbers  : false},
+        init_pkgs: ['coq','stringSml','boolSml','charSml','IEEERealSml','intSml','listPairSml',
+        'listSml','notationsSml','optionSml','realSml','stringCvtSml', 'equations'],
+        all_pkgs: ['coq', 'equations', 'stringSml','boolSml','charSml','IEEERealSml','intSml','listPairSml',
+        'listSml','notationsSml','optionSml','realSml','stringCvtSml']
+    };
+
+    JsCoq.start(jscoq_ids, jscoq_opts).then(res => {
+        /* Global reference */
+        window.coq = res;
+    });
+
+    function assert(condition, message) {
+    if (!condition) {
+        throw new Error(message || "Assertion failed");
+      }
+    }
+
+
+    window.onload = eraseFirstWindow
+
+    function hideLineNumber()
+    {
+      var y = document.getElementsByClassName("CodeMirror-linenumber CodeMirror-gutter-elt")
+      
+      for (let index = 0; index < y.length; index++) {
+        const element = y[index];
+        element.hidden = true
+        
+      }
+    }
+
+    function eraseFirstWindow()
+    {
+
+      /* Check if deletion can be disabled */
+      var x = document.getElementsByClassName("CodeMirror-scroll")
+      x[0].hidden = true
+
+      if (x.length > 2)
+      {
+        x[2].hidden = true
+      }
+      
+      var y = document.getElementsByClassName("CodeMirror cm-s-default jscoq")
+      assert(y.length == 5, "number of snippets is not 5")
+
+      y[1].firstChild.firstChild.readOnly = true 
+      y[3].firstChild.firstChild.readOnly = true
+
+      var codeWindows = document.getElementsByClassName("CodeMirror-lines")
+      var codeGutter = document.getElementsByClassName("CodeMirror-gutter CodeMirror-linenumbers")
+      assert(codeWindows.length == 5, "number of code windows is not 5")
+
+      codeWindows[1].style.backgroundColor = '#ffc0cb'
+      /* codeGutter[1].style.backgroundColor = 'green' */
+
+      codeWindows[3].style.backgroundColor = 'lightblue'
+      /*codeGutter[3].style.backgroundColor = 'lightblue'*/
+
+
+
+    }
+
+
+  </script>
+</body>
+</html>

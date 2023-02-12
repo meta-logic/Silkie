@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Silky – 15-150 Interactive Proof System</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="icon" href="static/jscoq+64bit/frontend/classic/images/favicon.png">
+
+  <style>
+    body {
+      visibility: hidden;
+    }
+
+    /* FOUC avoidance */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../static/jscoq+64bit/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="../static/jscoq+64bit/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/jscoq+64bit/node_modules/katex/dist/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/jscoq+64bit/frontend/classic/css/landing-page.css">
+  <link rel="stylesheet" type="text/css" href="../static/jscoq+64bit/frontend/classic/css/kbd.css">
+</head>
+
+<body class="jscoq-main">
+  <div id="ide-wrapper" class="toggled">
+    <div id="code-wrapper">
+      <div id="document-wrapper">
+        <!------------------------------->
+        <!--   N A V   B A R           -->
+        <!------------------------------->
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand"><img src="../static/jscoq+64bit/frontend/classic/images/favicon.png"></a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!------------------------------->
+
+        <div id="document">
+          <div>
+            <h3 style="text-align: center;"><span class="jscoq-name">Question 2</span></h3>
+
+            <p class="interim">
+                For this question, we have define a datatype representing a binary tree that can carry integer values.
+            </p>
+
+            <p class="interim">
+              We then define functions that count the number of nodes in the tree (its size) and a function to return a list representing the inorder traversal of the tree.
+            </p>
+
+
+                
+<textarea rows="11" cols="30" readonly>
+      datatype tree = Leaf of int 
+        |   Node of tree * int * tree
+
+      fun length ([] : int list) : int = 0
+      | length (x :: l) = 1 + length l
+
+      fun size (Leaf _ : tree) = 1
+      | size (Node (t1,_,t2)) = 1 + size(t1) + size(t2)
+
+      fun inorder(Leaf s) = [s]
+      |   inorder (Node (t1,x,t2)) = inorder t1 @ (x :: inorder t2)
+</textarea>
+
+<p class="interim">
+  The following is the Coq translation of the functions above:
+</p>
+<textarea class="intro">
+From Equations Require Import Equations.
+From listSml Require Import listSml.
+From intSml Require Import intSml.
+
+Inductive tree  : Type := 
+  | Leaf : Z -> @tree   
+  | Node : (tree * Z * tree)%type -> @tree.
+
+Equations length (x1: @list Z): Z :=
+  length [] := 0;
+  length (x :: l) := (1 + (length l)).
+
+Equations size (x1: tree): Z :=
+  size (Leaf _) := 1;
+  size (Node (t1, _, t2)) := ((1 + (size (t1))) + (size (t2))).
+
+Equations inorder (x1: tree): @list Z :=
+  inorder (Leaf s) := [s];
+  inorder (Node (t1, x, t2)) := ((inorder t1) ++ ((x :: (inorder t2)))).
+</textarea>
+
+<br/>
+<p class="interim">
+  <b>Your Task:</b>  Prove that the length of the inorder traversal of a tree is equal to its size. You may make use of any lemmas defined below:
+</p>
+
+<textarea class="intro">
+Lemma lengthLemma: forall (l1 l2 : list Z), length(l1 ++ l2) = length(l1) + length(l2).
+Admitted.
+</textarea>
+
+<textarea class="code">
+
+Theorem inorder_size: forall (t : tree), length (inorder (t)) = size(t).
+Proof.
+
+Qed.</textarea>
+
+          
+          </div> <!-- /#panel body -->
+          <a style="background-color:blue; display: grid; text-align: center; text-decoration: none; color: inherit;
+          border-style: solid; border-width: 2px; border-color: blue; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="3">Next</a>
+          <a style="background-color:red; display: grid; text-align: center; text-decoration: none; color: inherit;
+           border-style: solid; border-width: 2px; border-color: blue; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="1">Back</a>
+
+
+<a style="background-color:green; display: grid; margin-top: 1em; text-align: center; text-decoration: none; color: inherit;
+border-style: solid; border-width: 2px; border-color: green; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="/test">Tutorial</a>
+        </div> <!-- /#document -->
+      </div> <!-- /#document-wrapper -->
+    </div> <!-- /#code-wrapper -->
+  </div> <!-- /#ide-wrapper -->
+
+  <script type="module">
+    import { JsCoq } from '../static/jscoq+64bit/jscoq.js';
+
+    if (!localStorage['scratchpad.last_filename'])
+      setTimeout(() => document.body.classList.add('welcome'), 1500);
+
+    var jscoq_ids = ['.intro', '.code'];
+    var jscoq_opts = {
+      implicit_libs: false,
+      focus: false,
+      editor: { mode: { 'company-coq': true } },
+      init_pkgs: ['coq','stringSml','boolSml','charSml','IEEERealSml','intSml','listPairSml',
+        'listSml','notationsSml','optionSml','realSml','stringCvtSml', 'equations'],
+      all_pkgs: ['coq', 'equations', 'stringSml','boolSml','charSml','IEEERealSml','intSml','listPairSml',
+        'listSml','notationsSml','optionSml','realSml','stringCvtSml']
+    };
+
+    JsCoq.start(jscoq_ids, jscoq_opts).then(res => {
+      /* Global reference */
+      window.coq = res;
+    });
+  </script>
+</body>
+
+</html>

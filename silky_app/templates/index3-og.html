@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Silky – 15-150 Interactive Proof System</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="icon" href="static/jscoq+64bit/frontend/classic/images/favicon.png">
+
+  <style>
+    body {
+      visibility: hidden;
+    }
+
+    /* FOUC avoidance */
+  </style>
+  <link rel="stylesheet" type="text/css" href="/static/jscoq+64bit/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="/static/jscoq+64bit/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/jscoq+64bit/node_modules/katex/dist/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="static/jscoq+64bit/frontend/classic/css/landing-page.css">
+  <link rel="stylesheet" type="text/css" href="static/jscoq+64bit/frontend/classic/css/kbd.css">
+</head>
+
+<body class="jscoq-main">
+  <div id="ide-wrapper" class="toggled">
+    <div id="code-wrapper">
+      <div id="document-wrapper">
+        <!------------------------------->
+        <!--   N A V   B A R           -->
+        <!------------------------------->
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand"><img src="static/jscoq+64bit/frontend/classic/images/favicon.png"></a>
+            <a style="background-color:lightblue; display: grid; text-align: right; text-decoration: none; color: inherit; border-style: solid; border-width: 2px; border-color: blue;" href="upload">Upload SML Code</a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#team">jsCoq Dev Team</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="https://coq.inria.fr">Coq Proof Assistant</a></li>
+                    <li><a class="dropdown-item" href="https://github.com/cpitclaudel/company-coq">company-coq</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!------------------------------->
+
+        <div id="document">
+          <div>
+            <h3>Welcome to the <span class="jscoq-name">15-150</span> Interactive Proof System!</h3>
+            <p>
+              This will be the platform where you will complete the proof portions of your homework assignments
+              and labs for 15-150.
+            </p>
+            <p>
+              This system is still under active development. If you find any problem
+              that you wish to report, please email <a href = "mailto: aamohame@andrew.cmu.edu">Abubakr Mohamed</a>.
+              We are awaiting your feedback.
+            </p>
+            
+            <h4>First Steps:</h4>
+
+            <p>
+              Upon uploading your SML code to the system, you will be redirected to a page with three color-coded editor panes. 
+            </p>
+
+            <p>
+            The first pane (pink) contains the translations of your SML dataype declarations (eg. trees). The second pane (blue) contains
+            the translation of your function definitions. The last pane, which you will work in, contains the assignment questions 
+            to be proved as theorems. Note that the first two panes are read-only.
+            </p>
+            
+            <h4>How to write a Proof:</h4>
+
+            <p>
+              The proof for every theorem should be encapsulated by "Proof." and "Qed." commands as follows:
+            </p>
+
+            <textarea class="intro">
+Theorem example1: forall n:nat, n = n.
+Proof. trivial. Qed.</textarea>
+
+            <p>
+              In between these two commands, you should use a series of commands, called tactics, that allow
+              you to manipulate the goal (statement to be proved) until it can be proven trivially. 
+            </p>
+            <p>
+              Use <span class="has-kbd"><kbd>Alt</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd></span> or <span class="has-kbd"><kbd>option</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd></span> to step through the proof, 
+              executing tactics individually and observe the proof state on the right panel.
+            </p>
+
+            <p>
+              The proof state displays information about the current statement that needs to be proven (goal) as well
+              as the current proof context (variables, types, hypotheses, etc). Once a proof has been completed, the right panel
+              should reflect that there are "No more goals" to be proven.
+            </p>
+
+            <p>
+              Below is a table of some of the most common tactics that you might need to use in 15-150 along with a brief
+              explanation of their meaning:
+            </p>
+
+            <table class="doc-actions">
+              <tr>
+                <th>Tactic</th>
+                <th>Definition</th>
+              </tr>
+              <tr>
+                <td><b>introduce</b>
+                </td>
+                <td>Introduce quantified variables into conxtext.</td>
+              </tr>
+              <tr>
+                <td><b>induction &ltvar&gt</b>
+                </td>
+                <td>Perform structural induction on the variable indicated by &ltvar&gt</td>
+              </tr>
+              <tr>
+                <td><b>simpl</b>
+                </td>
+                <td>Simplify mathematical expressions / evaluate functions and simplify</td>
+              </tr>
+              <tr>
+                <td><b>rewrite &ltS1&gt in &ltS2&gt</b>
+                </td>
+                <td>Use a statement/hypothesis &ltS1&gt rewrite &ltS2&gt</td>
+              </tr>
+              <tr>
+                <td><b>apply &ltS&gt</b>
+                </td>
+                <td>Use a statement/hypothesis &ltS&gt to finish a (sub)goal</td>
+              </tr>
+              <tr>
+                <td><b>contradict</b>
+                </td>
+                <td>Use to finish a (sub)goal when one of the assumptions/hypotheses is a contradiction (eg. false = true)</td>
+              </tr>
+              <tr>
+                <td><b>cases &ltexpr&gt</b>
+                </td>
+                <td>Break the proof into cases based on the possible values of &ltexpr&gt</td>
+              </tr>
+            </table>
+            
+            <h4>Example Proof 1: <code>negb</code> <code>∘</code> <code>negb = id</code></h4>
+            <p>
+              The following is a simple proof that the negation of a boolean is its own inverse.
+            </p>
+
+            <p>
+              Use <span class="has-kbd"><kbd>Alt</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd></span> or <span class="has-kbd"><kbd>option</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd></span> to step through the proof,
+              and observe the proof state on the right panel.
+            </p>
+
+            <textarea class="intro">
+Definition negb (b : bool) : bool := 
+    match b with
+    true => false
+  | false => true
+  end.
+
+Theorem inverse: forall b : bool, negb (negb (b)) = b.
+Proof.
+    cases b. 
+        - simpl. trivial.
+        - simpl. trivial.
+Qed.
+</textarea>
+
+
+            
+            <h4>Example Proof 2: <code>rev</code> <code>∘</code> <code>rev = id</code></h4>
+            <p>
+              The following is a simple proof that <code>rev</code>, the standard list
+              reversal function as commonly defined in SML and other languages of the
+              family, is an involution (its own inverse).
+            </p>
+            
+            <textarea class="intro">
+From Coq Require Import List.
+Import ListNotations.</textarea>
+            <p class="interim">
+              We are going to need a simpler auxiliary lemma, one that connects
+              <code>rev</code>, <code>::</code> (the list constructor, also known
+              as <code>cons</code>), and <code>snoc</code> (the dual of
+              <code>cons</code>, a function that appends an element at the end of
+              a list).
+              This is because the latter two participate in the definition of
+              the former, <code>rev</code>.
+            </p>
+
+            <textarea class="intro">Lemma rev_snoc_cons A :
+  forall (x : A) (l : list A), rev (l ++ [x]) = x :: rev l.</textarea>
+            <p class="interim">
+              This proposition is proven by way of the standard induction on
+              the structure of the list <code>l</code>.
+            </p>
+            <textarea class="intro">Proof.
+  induction l.
+  - reflexivity.
+  - simpl. rewrite IHl. simpl. reflexivity.
+Qed.</textarea>
+
+            <p class="interim">
+              Now we prove the central equality with a similar induction.
+            </p>
+            <textarea class="intro">Theorem rev_rev A : forall (l : list A), rev (rev l) = l.
+Proof.
+  induction l.
+  - reflexivity.
+  - simpl. rewrite rev_snoc_cons. rewrite IHl.
+    reflexivity.
+Qed.</textarea>
+
+
+            <hr /> <!-- end of proof -->
+
+            <h4>Quick start</h4>
+
+            <h5>Actions</h5>
+            <table class="doc-actions">
+              <tr>
+                <th>Button</th>
+                <th>Key binding</th>
+                <th>Action</th>
+              </tr>
+              <tr>
+                <td><img src="/static/jscoq+64bit/frontend/classic/images/power-button-512-black.png" height="20px">
+                </td>
+                <td class="has-kbd"><kbd>F8</kbd></td>
+                <td>Toggles the goal panel.</td>
+              </tr>
+              <tr>
+                <td><img src="/static/jscoq+64bit/frontend/classic/images/down.png" height="15px"><img
+                    src="/static/jscoq+64bit/frontend/classic/images/up.png" height="15px"></td>
+                <td class="has-kbd">
+                  <kbd>Alt</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd> or<br />
+                  <kbd>Alt</kbd>+<kbd>N</kbd>/<kbd>P</kbd>
+                </td>
+                <td>Move through the proof.</td>
+              </tr>
+              <tr>
+                <td><img src="/static/jscoq+64bit/frontend/classic/images/to-cursor.png" height="20px"></td>
+                <td class="has-kbd">
+                  <kbd>Alt</kbd>+<kbd>Enter</kbd> or<br /> <kbd>Ctrl</kbd>+<kbd>Enter</kbd><br />
+                  (⌘ on Mac)
+                </td>
+                <td>Run (or go back) to the current point.</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="has-kbd">
+                  <kbd>Ctrl</kbd>+<img class="symbol-mouse"
+                    src="/static/jscoq+64bit/frontend/classic/images/pointer.svg">
+                </td>
+                <td>Hover executed statements to peek at the proof state after each step.</td>
+              </tr>
+            </table>
+          
+          </div> <!-- /#panel body -->
+          
+        </div> <!-- /#document -->
+      </div> <!-- /#document-wrapper -->
+    </div> <!-- /#code-wrapper -->
+  </div> <!-- /#ide-wrapper -->
+
+  <script type="module">
+    import { JsCoq } from '/static/jscoq+64bit/jscoq.js';
+
+    if (!localStorage['scratchpad.last_filename'])
+      setTimeout(() => document.body.classList.add('welcome'), 1500);
+
+    var jscoq_ids = ['.code','.intro'];
+    var jscoq_opts = {
+      implicit_libs: false,
+      focus: false,
+      editor: { mode: { 'company-coq': true } },
+      init_pkgs: ['coq', 'stringSml'],
+      all_pkgs: ['coq', 'stringSml']
+    };
+
+    JsCoq.start(jscoq_ids, jscoq_opts).then(res => {
+      /* Global reference */
+      window.coq = res;
+    });
+  </script>
+</body>
+
+</html>

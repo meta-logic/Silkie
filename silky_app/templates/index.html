@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>Silky - SML code Upload</title>
+    <link rel="stylesheet" href="/static/mystyles.css"/>
+  </head>
+
+<body>
+<div>
+  <div class="big-heading">
+    Silky
+  </div>
+</div>
+
+  <form action="/" method="POST" enctype="multipart/form-data" class="files">
+    <label for="id_file_upload">Upload SML file:</label>
+    <br>
+    <input type="file" name="smlcode" id="id_file_upload" class="inp">
+    <br>
+    {% csrf_token %}
+    <button id="id_upload_button" class="button">Submit</button>
+  </form>
+
+</body>
