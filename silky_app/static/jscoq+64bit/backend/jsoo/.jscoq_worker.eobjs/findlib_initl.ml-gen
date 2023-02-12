@@ -1,0 +1,67 @@
+Findlib.record_package Findlib.Record_core "base";;
+Findlib.record_package Findlib.Record_core "base.base_internalhash_types";;
+Findlib.record_package Findlib.Record_core "base.caml";;
+Findlib.record_package Findlib.Record_core "base.shadow_stdlib";;
+Findlib.record_package Findlib.Record_core "bigarray";;
+Findlib.record_package Findlib.Record_core "bytes";;
+Findlib.record_package Findlib.Record_core "coq-core.boot";;
+Findlib.record_package Findlib.Record_core "coq-core.clib";;
+Findlib.record_package Findlib.Record_core "coq-core.config";;
+Findlib.record_package Findlib.Record_core "coq-core.engine";;
+Findlib.record_package Findlib.Record_core "coq-core.gramlib";;
+Findlib.record_package Findlib.Record_core "coq-core.interp";;
+Findlib.record_package Findlib.Record_core "coq-core.kernel";;
+Findlib.record_package Findlib.Record_core "coq-core.lib";;
+Findlib.record_package Findlib.Record_core "coq-core.library";;
+Findlib.record_package Findlib.Record_core "coq-core.parsing";;
+Findlib.record_package Findlib.Record_core "coq-core.plugins.ltac";;
+Findlib.record_package Findlib.Record_core "coq-core.pretyping";;
+Findlib.record_package Findlib.Record_core "coq-core.printing";;
+Findlib.record_package Findlib.Record_core "coq-core.proofs";;
+Findlib.record_package Findlib.Record_core "coq-core.stm";;
+Findlib.record_package Findlib.Record_core "coq-core.sysinit";;
+Findlib.record_package Findlib.Record_core "coq-core.tactics";;
+Findlib.record_package Findlib.Record_core "coq-core.toplevel";;
+Findlib.record_package Findlib.Record_core "coq-core.vernac";;
+Findlib.record_package Findlib.Record_core "coq-core.vm";;
+Findlib.record_package Findlib.Record_core "coq-serapi.extcoq";;
+Findlib.record_package Findlib.Record_core "coq-serapi.serapi_v8_14";;
+Findlib.record_package Findlib.Record_core "coq-serapi.serlib";;
+Findlib.record_package Findlib.Record_core "dynlink";;
+Findlib.record_package Findlib.Record_core "findlib";;
+Findlib.record_package Findlib.Record_core "findlib.dynload";;
+Findlib.record_package Findlib.Record_core "findlib.internal";;
+Findlib.record_package Findlib.Record_core "js_of_ocaml";;
+Findlib.record_package Findlib.Record_core "js_of_ocaml-compiler.runtime";;
+Findlib.record_package Findlib.Record_core "js_of_ocaml-lwt";;
+Findlib.record_package Findlib.Record_core "lwt";;
+Findlib.record_package Findlib.Record_core "num";;
+Findlib.record_package Findlib.Record_core "num.core";;
+Findlib.record_package Findlib.Record_core "parsexp";;
+Findlib.record_package Findlib.Record_core "ppx_compare.runtime-lib";;
+Findlib.record_package Findlib.Record_core "ppx_deriving.runtime";;
+Findlib.record_package Findlib.Record_core "ppx_deriving_yojson.runtime";;
+Findlib.record_package Findlib.Record_core "ppx_hash.runtime-lib";;
+Findlib.record_package Findlib.Record_core "ppx_sexp_conv.runtime-lib";;
+Findlib.record_package Findlib.Record_core "result";;
+Findlib.record_package Findlib.Record_core "seq";;
+Findlib.record_package Findlib.Record_core "sexplib";;
+Findlib.record_package Findlib.Record_core "sexplib0";;
+Findlib.record_package Findlib.Record_core "str";;
+Findlib.record_package Findlib.Record_core "threads";;
+Findlib.record_package Findlib.Record_core "threads.posix";;
+Findlib.record_package Findlib.Record_core "uchar";;
+Findlib.record_package Findlib.Record_core "unix";;
+Findlib.record_package Findlib.Record_core "yojson";;
+Findlib.record_package Findlib.Record_core "zarith";;
+Findlib.record_package Findlib.Record_core "zarith_stubs_js";;
+let preds =
+  [ "mt"
+  ; "mt_posix"
+  ; "ppx_driver"
+  ]
+in
+let preds =
+  (if Dynlink.is_native then "native" else "byte") :: preds
+in
+Findlib.record_package_predicates preds;;

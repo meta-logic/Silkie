@@ -1,0 +1,30 @@
+(** @canonical Jscoqlib.Code_info *)
+module Code_info = Jscoqlib__Code_info
+
+
+(** @canonical Jscoqlib.Icoq *)
+module Icoq = Jscoqlib__Icoq
+
+
+(** @canonical Jscoqlib.Jscoq_doc *)
+module Jscoq_doc = Jscoqlib__Jscoq_doc
+
+
+(** @canonical Jscoqlib.Jscoq_interp *)
+module Jscoq_interp = Jscoqlib__Jscoq_interp
+
+
+(** @canonical Jscoqlib.Jscoq_proto *)
+module Jscoq_proto = Jscoqlib__Jscoq_proto
+
+
+(** @canonical Jscoqlib.Jscoq_util *)
+module Jscoq_util = Jscoqlib__Jscoq_util
+
+
+(** @canonical Jscoqlib.Jscoq_version *)
+module Jscoq_version = Jscoqlib__Jscoq_version
+
+
+(** @canonical Jscoqlib.Jslibmng *)
+module Jslibmng = Jscoqlib__Jslibmng
