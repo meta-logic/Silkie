@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>Silky – 15-150 Interactive Proof System</title>
+  <title>Silkie – 15-150 Interactive Proof System</title>
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <link rel="icon" href="static/jscoq+64bit/frontend/classic/images/favicon.png">
 
@@ -41,30 +41,18 @@
 
         <div id="document">
           <div>
-            <h3 style="text-align: center;"><span class="jscoq-name">Question 2</span></h3>
+            <h3 style="text-align: center;"><span class="jscoq-name">Question 1</span></h3>
 
             <p class="interim">
-                For this question, we have define a datatype representing a binary tree that can carry integer values.
+                List length and reversal functions have been defined in SML as follows:
             </p>
-
-            <p class="interim">
-              We then define functions that count the number of nodes in the tree (its size) and a function to return a list representing the inorder traversal of the tree.
-            </p>
-
-
                 
-<textarea rows="11" cols="30" readonly>
-      datatype tree = Leaf of int 
-        |   Node of tree * int * tree
+<textarea rows="6" cols="30" readonly>
+      fun length ([]: 'a list) = 0
+          | length (x :: l) = 1 + length(l)
 
-      fun length ([] : int list) : int = 0
-      | length (x :: l) = 1 + length l
-
-      fun size (Leaf _ : tree) = 1
-      | size (Node (t1,_,t2)) = 1 + size(t1) + size(t2)
-
-      fun inorder(Leaf s) = [s]
-      |   inorder (Node (t1,x,t2)) = inorder t1 @ (x :: inorder t2)
+      fun reverse ([] : 'a list) = []
+          | reverse (x :: l) = reverse (l) @ [x]
 </textarea>
 
 <p class="interim">
@@ -73,38 +61,32 @@
 <textarea class="intro">
 From Equations Require Import Equations.
 From listSml Require Import listSml.
-From intSml Require Import intSml.
 
-Inductive tree  : Type := 
-  | Leaf : Z -> @tree   
-  | Node : (tree * Z * tree)%type -> @tree.
+Equations length (A : Type) (x1 : @list A) : nat := 
+length _ ([]) := 0;
+length _ (x :: l) := 1 + length _ (l).
 
-Equations length (x1: @list Z): Z :=
-  length [] := 0;
-  length (x :: l) := (1 + (length l)).
-
-Equations size (x1: tree): Z :=
-  size (Leaf _) := 1;
-  size (Node (t1, _, t2)) := ((1 + (size (t1))) + (size (t2))).
-
-Equations inorder (x1: tree): @list Z :=
-  inorder (Leaf s) := [s];
-  inorder (Node (t1, x, t2)) := ((inorder t1) ++ ((x :: (inorder t2)))).
+Equations reverse (A : Type) (x1 : @list A) : @list A := 
+reverse _ ([]) := [];
+reverse _ (x :: l) := reverse _ l ++ [x].
 </textarea>
 
 <br/>
 <p class="interim">
-  <b>Your Task:</b>  Prove that the length of the inorder traversal of a tree is equal to its size. You may make use of any lemmas defined below:
+  <b>Your Task:</b>  Prove that reversing a list maintains its length (i.e length(rev(l)) = length(l) for any list l). You may make use of any lemmas defined below:
 </p>
 
 <textarea class="intro">
-Lemma lengthLemma: forall (l1 l2 : list Z), length(l1 ++ l2) = length(l1) + length(l2).
+Lemma length_add A: forall (l1 l2: list A), length _ (l1 ++ l2) = length _ l1 + length _ l2.
+Admitted.
+
+Lemma add_comm: forall (a b: nat), a + b = b + a.
 Admitted.
 </textarea>
 
 <textarea class="code">
 
-Theorem inorder_size: forall (t : tree), length (inorder (t)) = size(t).
+Theorem rev_len A : forall (l : list A), length _ (reverse _ l) = length _ (l).
 Proof.
 
 Qed.</textarea>
@@ -112,13 +94,11 @@ Qed.</textarea>
           
           </div> <!-- /#panel body -->
           <a style="background-color:blue; display: grid; text-align: center; text-decoration: none; color: inherit;
-          border-style: solid; border-width: 2px; border-color: blue; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="3">Next</a>
-          <a style="background-color:red; display: grid; text-align: center; text-decoration: none; color: inherit;
-           border-style: solid; border-width: 2px; border-color: blue; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="1">Back</a>
+           border-style: solid; border-width: 2px; border-color: blue; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="2">Next</a>
 
-
-<a style="background-color:green; display: grid; margin-top: 1em; text-align: center; text-decoration: none; color: inherit;
-border-style: solid; border-width: 2px; border-color: green; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="/test">Tutorial</a>
+           
+           <a style="background-color:green; display: grid; margin-top: 1em; text-align: center; text-decoration: none; color: inherit;
+           border-style: solid; border-width: 2px; border-color: green; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="/test">Tutorial</a>
         </div> <!-- /#document -->
       </div> <!-- /#document-wrapper -->
     </div> <!-- /#code-wrapper -->
@@ -135,10 +115,8 @@ border-style: solid; border-width: 2px; border-color: green; color:white; font-f
       implicit_libs: false,
       focus: false,
       editor: { mode: { 'company-coq': true } },
-      init_pkgs: ['coq','stringSml','boolSml','charSml','IEEERealSml','intSml','listPairSml',
-        'listSml','notationsSml','optionSml','realSml','stringCvtSml', 'equations'],
-      all_pkgs: ['coq', 'equations', 'stringSml','boolSml','charSml','IEEERealSml','intSml','listPairSml',
-        'listSml','notationsSml','optionSml','realSml','stringCvtSml']
+      init_pkgs: ['coq', 'listSml', 'equations'],
+      all_pkgs: ['coq', 'listSml', 'equations']
     };
 
     JsCoq.start(jscoq_ids, jscoq_opts).then(res => {

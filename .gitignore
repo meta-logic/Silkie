@@ -2,16 +2,16 @@ db.sqlite3
 **/__pycache__/
 **/.DS_Store
 
-!silky_app/
+!silkie_app/
 
-silky_app/static/*
-!silky_app/static/jscoq+64bit/
+silkie_app/static/*
+!silkie_app/static/jscoq+64bit/
 
-silky_app/static/jscoq+64bit/*
-!silky_app/static/jscoq+64bit/backend
-!silky_app/static/jscoq+64bit/frontend
-!silky_app/static/jscoq+64bit/jscoq.js
-!silky_app/static/jscoq+64bit/jscoq.opam
-!silky_app/static/jscoq+64bit/README.md
+silkie_app/static/jscoq+64bit/*
+!silkie_app/static/jscoq+64bit/backend
+!silkie_app/static/jscoq+64bit/frontend
+!silkie_app/static/jscoq+64bit/jscoq.js
+!silkie_app/static/jscoq+64bit/jscoq.opam
+!silkie_app/static/jscoq+64bit/README.md
 
 

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SilkyAppConfig(AppConfig):
+class SilkieAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'silky_app'
+    name = 'silkie_app'
