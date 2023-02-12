@@ -1,0 +1,5 @@
+db.sqlite3
+**/__pycache__/
+silky_app/static/**
+!silky_app/static/jscoq+64bit/
+**/.DS_Store
