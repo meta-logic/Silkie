@@ -22,18 +22,18 @@ def startPage(request):
             
             # Save the file temporarily in local storage
             with smlfile.open() as smlf:
-                tmp = open("jscoq_test/static/sml-to-coq/tmpsml.sml","wb")  ## obvious concurrency bug / fix later
+                tmp = open("/silkie/static/sml-to-coq/tmpsml.sml","wb")  ## obvious concurrency bug / fix later
                 tmp.writelines(smlf.readlines())
                 tmp.close()
 
             # Load the SML-to-Coq heap image to convert the SML file to a Coq file
-            print(subprocess.run('cd jscoq_test/static/sml-to-coq && sml @SMLload sml2coq.amd64-darwin tmpsml.sml ../vfiles/tmp2.v', shell=True))
+            print(subprocess.run('cd /silkie/static/sml-to-coq && sml @SMLload sml2coq.amd64-darwin tmpsml.sml ../vfiles/tmp2.v', shell=True))
             
             # Remove temp SML file
-            if os.path.isfile('jscoq_test/static/sml-to-coq/tmpsml.sml'):
-                os.remove('jscoq_test/static/sml-to-coq/tmpsml.sml')
+            if os.path.isfile('/silkie/static/sml-to-coq/tmpsml.sml'):
+                os.remove('/silkie/static/sml-to-coq/tmpsml.sml')
 
-            with open('jscoq_test/static/vfiles/tmp2.v') as vfile:
+            with open('/silkie/static/vfiles/tmp2.v') as vfile:
                 txt = vfile.readlines()
             
             print(txt)
