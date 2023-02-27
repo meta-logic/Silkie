@@ -12,7 +12,7 @@
     }
 
     /* FOUC avoidance */
- 
+
   </style>
   <link rel="stylesheet" type="text/css" href="/silkie/static/jscoq+64bit/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <script src="/silkie/static/jscoq+64bit/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -31,7 +31,7 @@
         <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
             <a class="navbar-brand"><img src="/silkie/static/jscoq+64bit/frontend/classic/images/favicon.png"></a>
-            <a style="background-color:lightblue; display: grid; text-align: right; text-decoration: none; color: inherit; border-style: solid; border-width: 2px; border-color: blue;" href="upload">Upload SML Code</a>
+            <a style="background-color:lightblue; display: grid; text-align: right; text-decoration: none; color: inherit; border-style: solid; border-width: 2px; border-color: blue;" href="/silkie/upload">Upload SML Code</a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -60,24 +60,25 @@
               and labs for 15-150.
             </p>
             <p>
-              This system is still under active development. If you find any problem
-              that you wish to report, please email <a href = "mailto: aamohame@andrew.cmu.edu">Abubakr Mohamed</a>.
-              We are awaiting your feedback.
+              This system is still under active development by <a href = "mailto: aamohame@andrew.cmu.edu">Abubakr Mohamed</a>.
+	      If you find any problem that you wish to report, please submit an issue on <a href="https://github.com/meta-logic/Silkie">github</a>.
+
+	      We are awaiting your feedback.
             </p>
-            
-            <h4>First Steps:</h4>
+
+            <h4>First Steps</h4>
 
             <p>
-              Upon uploading your SML code to the system, you will be redirected to a page with three color-coded editor panes. 
+              Upon uploading your SML code to the system, you will be redirected to a page with three color-coded editor panes.
             </p>
 
             <p>
             The first pane (pink) contains the translations of your SML dataype declarations (eg. trees). The second pane (blue) contains
-            the translation of your function definitions. The last pane, which you will work in, contains the assignment questions 
+            the translation of your function definitions. The last pane, which you will work in, contains the assignment questions
             to be proved as theorems. Note that the first two panes are read-only.
             </p>
-            
-            <h4>How to write a Proof:</h4>
+
+            <h4>How to Write a Proof</h4>
 
             <p>
               The proof for every theorem should be encapsulated by "Proof." and "Qed." commands as follows:
@@ -89,10 +90,10 @@ Proof. trivial. Qed.</textarea>
 
             <p>
               In between these two commands, you should use a series of commands, called tactics, that allow
-              you to manipulate the goal (statement to be proved) until it can be proven trivially. 
+              you to manipulate the goal (statement to be proved) until it can be proven trivially.
             </p>
             <p>
-              Use <span class="has-kbd"><kbd>Alt</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd></span> or <span class="has-kbd"><kbd>option</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd></span> to step through the proof, 
+              Use <span class="has-kbd"><kbd>Alt</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd></span> or <span class="has-kbd"><kbd>option</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd></span> to step through the proof,
               executing tactics individually and observe the proof state on the right panel.
             </p>
 
@@ -125,7 +126,17 @@ Proof. trivial. Qed.</textarea>
               <tr>
                 <td><b>simpl</b>
                 </td>
-                <td>Simplify mathematical expressions / evaluate functions and simplify</td>
+                <td>Simplify / evaluate mathematical expressions</td>
+              </tr>
+              <tr>
+                <td><b>simp &ltfun&gt</b>
+                </td>
+                <td>Apply / evaluate the function &ltfun&gt</td>
+              </tr>
+              <tr>
+                <td><b>by_math</b>
+                </td>
+                <td>Use to prove trivial arithmetic statements (eg. x + x = 2x)</td>
               </tr>
               <tr>
                 <td><b>rewrite &ltS1&gt in &ltS2&gt</b>
@@ -148,7 +159,7 @@ Proof. trivial. Qed.</textarea>
                 <td>Break the proof into cases based on the possible values of &ltexpr&gt</td>
               </tr>
             </table>
-            
+
             <h4>Example Proof 1: <code>negb</code> <code>∘</code> <code>negb = id</code></h4>
             <p>
               The following is a simple proof that the negation of a boolean is its own inverse.
@@ -160,7 +171,7 @@ Proof. trivial. Qed.</textarea>
             </p>
 
             <textarea class="intro">
-Definition negb (b : bool) : bool := 
+Definition negb (b : bool) : bool :=
     match b with
     true => false
   | false => true
@@ -168,21 +179,21 @@ Definition negb (b : bool) : bool :=
 
 Theorem inverse: forall b : bool, negb (negb (b)) = b.
 Proof.
-    cases b. 
+    cases b.
         - simpl. trivial.
         - simpl. trivial.
 Qed.
 </textarea>
 
 
-            
+
             <h4>Example Proof 2: <code>rev</code> <code>∘</code> <code>rev = id</code></h4>
             <p>
               The following is a simple proof that <code>rev</code>, the standard list
               reversal function as commonly defined in SML and other languages of the
               family, is an involution (its own inverse).
             </p>
-            
+
             <textarea class="intro">
 From Coq Require Import List.
 Import ListNotations.</textarea>
@@ -263,9 +274,9 @@ Qed.</textarea>
                 <td>Hover executed statements to peek at the proof state after each step.</td>
               </tr>
             </table>
-          
+
           </div> <!-- /#panel body -->
-          
+
         </div> <!-- /#document -->
       </div> <!-- /#document-wrapper -->
     </div> <!-- /#code-wrapper -->

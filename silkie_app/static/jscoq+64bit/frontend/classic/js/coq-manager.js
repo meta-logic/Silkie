@@ -907,8 +907,6 @@ export class CoqManager {
         
         stm.text = stm.text.replace('introduce','intros');
 
-        stm.text = stm.text.replace('by_math','lia');
-        
 
         let arr = stm.text.split(' ').map((x) => x.trim().replace(';',''));
         if (arr)

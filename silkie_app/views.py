@@ -14,26 +14,31 @@ def startPage(request):
 
     # Verify the existence of the uploaded file
     # and check that is an SML file
+    print(os.getcwd())
+    print(os.listdir())
+    
     if 'smlcode' in request.FILES:
         smlfile = request.FILES['smlcode']
         filename = str(request.FILES['smlcode'])
         if filename.endswith(".sml"):
             print("SML FILE Uploaded")
             
+            path2tmp = os.path.join(os.path.dirname(__file__),"static/sml-to-coq/tmpsml.sml")
             # Save the file temporarily in local storage
             with smlfile.open() as smlf:
-                tmp = open("/silkie/static/sml-to-coq/tmpsml.sml","wb")  ## obvious concurrency bug / fix later
+                tmp = open(path2tmp,"wb")  ## obvious concurrency bug / fix later
                 tmp.writelines(smlf.readlines())
                 tmp.close()
 
             # Load the SML-to-Coq heap image to convert the SML file to a Coq file
-            print(subprocess.run('cd /silkie/static/sml-to-coq && sml @SMLload sml2coq.amd64-darwin tmpsml.sml ../vfiles/tmp2.v', shell=True))
+            print(subprocess.run('cd silkie_app/static/sml-to-coq && sml @SMLload sml2coq.amd64-darwin tmpsml.sml ../vfiles/tmp2.v', shell=True))
+
             
             # Remove temp SML file
-            if os.path.isfile('/silkie/static/sml-to-coq/tmpsml.sml'):
-                os.remove('/silkie/static/sml-to-coq/tmpsml.sml')
+            if os.path.isfile('silkie_app/static/sml-to-coq/tmpsml.sml'):
+                os.remove('silkie_app/static/sml-to-coq/tmpsml.sml')
 
-            with open('/silkie/static/vfiles/tmp2.v') as vfile:
+            with open('silkie_app/static/vfiles/tmp2.v') as vfile:
                 txt = vfile.readlines()
             
             print(txt)
