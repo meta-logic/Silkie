@@ -3,7 +3,6 @@ db.sqlite3
 **/.DS_Store
 
 !silkie_app/
-
 silkie_app/static/*
 !silkie_app/static/jscoq+64bit/
 

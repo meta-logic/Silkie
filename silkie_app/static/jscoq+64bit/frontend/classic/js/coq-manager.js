@@ -590,7 +590,8 @@ export class CoqManager {
             let subgoals = hgoals.children()
             let num_goals = subgoals[0].className == "num-goals" ? parseInt(subgoals[0].textContent.split(" ")[0]) : 1;
             
-/*             var cm = document.getElementsByClassName("CodeMirror")[4].CodeMirror;
+            var len = document.getElementsByClassName("CodeMirror").length; 
+            var cm = document.getElementsByClassName("CodeMirror")[len-1].CodeMirror;
             var doc = cm.getDoc();
             var cursor = doc.getCursor(); 
             var line = doc.getLine(cursor.line); 
@@ -617,7 +618,7 @@ export class CoqManager {
                         }
                 doc.replaceRange(newlines, pos); // adds a new line
                 
-            } */
+            } 
             
             this.doc.goals[sid] = hgoals;
             this.updateGoals(hgoals);

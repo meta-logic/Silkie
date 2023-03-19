@@ -11,6 +11,15 @@
       visibility: hidden;
     }
 
+    #smlCode {
+      border:1px solid black;
+      background-color: lightblue;
+      padding-left: 2em;
+      padding-top: 1em;
+      padding-bottom: 1em;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+    }
     /* FOUC avoidance */
 
   </style>
@@ -38,10 +47,6 @@
                 <li class="nav-item dropdown">
 
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#team">jsCoq Dev Team</a></li>
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
                     <li><a class="dropdown-item" href="https://coq.inria.fr">Coq Proof Assistant</a></li>
                     <li><a class="dropdown-item" href="https://github.com/cpitclaudel/company-coq">company-coq</a></li>
                   </ul>
@@ -64,6 +69,11 @@
 	      If you find any problem that you wish to report, please submit an issue on <a href="https://github.com/meta-logic/Silkie">github</a>.
 
 	      We are awaiting your feedback.
+          
+        <br> 
+        <br>
+
+        Note: This system has been tested on the following browsers: Chrome (v110.0.5481), Safari (v16.3), Opera (v96.0.4693) and Edge (v110.0.1587)
             </p>
 
             <h4>First Steps</h4>
@@ -73,7 +83,7 @@
             </p>
 
             <p>
-            The first pane (pink) contains the translations of your SML dataype declarations (eg. trees). The second pane (blue) contains
+            The first pane (pink) contains the translations of your SML datatype declarations (eg. trees). The second pane (blue) contains
             the translation of your function definitions. The last pane, which you will work in, contains the assignment questions
             to be proved as theorems. Note that the first two panes are read-only.
             </p>
@@ -116,7 +126,7 @@ Proof. trivial. Qed.</textarea>
               <tr>
                 <td><b>introduce</b>
                 </td>
-                <td>Introduce quantified variables into conxtext.</td>
+                <td>Introduce quantified variables into context.</td>
               </tr>
               <tr>
                 <td><b>induction &ltvar&gt</b>
@@ -161,7 +171,20 @@ Proof. trivial. Qed.</textarea>
             </table>
 
             <h4>Example Proof 1: <code>negb</code> <code>∘</code> <code>negb = id</code></h4>
+
             <p>
+              Consider the following SML definition of boolean negation.
+            </p>
+
+            <div id="smlCode">
+            fun negb (b : bool) : bool = <br>
+            case b of <br>
+                true => false <br>
+            |   false => true <br>
+        </div>
+
+            <p>
+              <br>
               The following is a simple proof that the negation of a boolean is its own inverse.
             </p>
 
@@ -170,64 +193,67 @@ Proof. trivial. Qed.</textarea>
               and observe the proof state on the right panel.
             </p>
 
-            <textarea class="intro">
-Definition negb (b : bool) : bool :=
-    match b with
-    true => false
-  | false => true
-  end.
+            <textarea class="intro" id="hide1">
+From Equations Require Import Equations.
 
+Equations negb (x1: bool): bool :=
+  negb b := 
+    match b with
+    | true => false  
+    | false => true
+end.</textarea>
+
+            <textarea class="intro">
 Theorem inverse: forall b : bool, negb (negb (b)) = b.
 Proof.
-    cases b.
-        - simpl. trivial.
-        - simpl. trivial.
-Qed.
-</textarea>
+  cases b.
+      - simp negb. trivial.
+      - simp negb. trivial. 
+Qed.</textarea>
 
 
 
             <h4>Example Proof 2: <code>rev</code> <code>∘</code> <code>rev = id</code></h4>
             <p>
-              The following is a simple proof that <code>rev</code>, the standard list
-              reversal function as commonly defined in SML and other languages of the
-              family, is an involution (its own inverse).
+              Consider the following SML definition of a list reversal function
             </p>
 
+            <div id="smlCode">
+              fun rev ([] : int list) = [] <br>
+              | rev (x :: l) = rev l @ [x] <br>
+          </div>
+          <br>
+
+          Suppose that our task is to prove that <code>rev</code> is its own inverse. (i.e reversing a list twice returns the original list).
             <textarea class="intro">
 From Coq Require Import List.
 Import ListNotations.</textarea>
+<textarea class="intro" id="hide1">
+  From listSml Require Import listSml.
+  From notationsSml Require Import notationsSml.
+  From Coq Require Import ZArith.
+
+  
+  Equations rev (x1: @list Z): @list Z :=
+  rev [] := [];
+  rev (x :: l) := ((rev l) @ [x]).</textarea>
             <p class="interim">
-              We are going to need a simpler auxiliary lemma, one that connects
-              <code>rev</code>, <code>::</code> (the list constructor, also known
-              as <code>cons</code>), and <code>snoc</code> (the dual of
-              <code>cons</code>, a function that appends an element at the end of
-              a list).
-              This is because the latter two participate in the definition of
-              the former, <code>rev</code>.
+              First, we are going to need the following lemma to complete the proof.
             </p>
 
-            <textarea class="intro">Lemma rev_snoc_cons A :
-  forall (x : A) (l : list A), rev (l ++ [x]) = x :: rev l.</textarea>
-            <p class="interim">
-              This proposition is proven by way of the standard induction on
-              the structure of the list <code>l</code>.
-            </p>
-            <textarea class="intro">Proof.
-  induction l.
-  - reflexivity.
-  - simpl. rewrite IHl. simpl. reflexivity.
-Qed.</textarea>
+            <textarea class="intro">Lemma rev_lemma : forall (a : Z), forall (l : list Z),
+    rev (l @ [a]) = a :: rev(l).
+
+Admitted. </textarea>
 
             <p class="interim">
-              Now we prove the central equality with a similar induction.
+              Now we prove the desired theorem by induction on the list <code>l</code>.
             </p>
-            <textarea class="intro">Theorem rev_rev A : forall (l : list A), rev (rev l) = l.
+            <textarea class="intro">Theorem rev_rev : forall (l : list Z), rev (rev l) = l.
 Proof.
   induction l.
-  - reflexivity.
-  - simpl. rewrite rev_snoc_cons. rewrite IHl.
-    reflexivity.
+    - simp rev. trivial.
+    - simp rev. rewrite rev_lemma. rewrite IHl. trivial.
 Qed.</textarea>
 
 
@@ -275,6 +301,34 @@ Qed.</textarea>
               </tr>
             </table>
 
+            <br>
+            Special symbols can be entered in the editor by using the following keywords.
+            <h5>Actions</h5>
+            <table class="doc-actions">
+              <tr>
+                <th>Symbol</th>
+                <th>Term</th>
+              </tr>
+              <tr>
+                <td>∀</td>
+                <td>forall</td>
+              </tr>
+              <tr>
+                <td>∃</td>
+                <td>exists</td>
+                
+              </tr>
+              <tr>
+                <td>∨</td>
+                <td>\\/</td>
+                
+              </tr>
+              <tr>
+                <td>λ</td>
+                <td>fun</td>
+              </tr>
+            </table>
+
           </div> <!-- /#panel body -->
 
         </div> <!-- /#document -->
@@ -283,7 +337,7 @@ Qed.</textarea>
   </div> <!-- /#ide-wrapper -->
 
   <script type="module">
-    import { JsCoq } from '/silkie/static/jscoq+64bit/jscoq.js';
+    import { JsCoq } from '/silkie/static/jscoq+64bit/jscoq-tutorial.js';
 
     if (!localStorage['scratchpad.last_filename'])
       setTimeout(() => document.body.classList.add('welcome'), 1500);
@@ -293,13 +347,18 @@ Qed.</textarea>
       implicit_libs: false,
       focus: false,
       editor: { mode: { 'company-coq': true } },
-      init_pkgs: ['coq', 'stringSml'],
-      all_pkgs: ['coq', 'stringSml']
+      init_pkgs: ['coq', 'stringSml', 'listSml','notationsSml', 'equations'],
+      all_pkgs: ['coq', 'stringSml','notationsSml', 'listSml','equations']
     };
 
     JsCoq.start(jscoq_ids, jscoq_opts).then(res => {
       /* Global reference */
       window.coq = res;
+
+      document.getElementsByClassName("CodeMirror")[1].hidden = true;
+      document.getElementsByClassName("CodeMirror")[3].hidden = true;
+      document.getElementsByClassName("CodeMirror")[4].hidden = true;
+
     });
   </script>
 </body>

@@ -27,5 +27,7 @@ urlpatterns = [
     path('test/3', views.q3),
     path('test/4', views.q4),
     path('test/submit', views.submit),
-    path('help/', views.usagePage)
+    path('help/', views.usagePage),
+    path('test/answer', views.loadanswer),
+    path('test_perm', views.checkPerm)
 ]

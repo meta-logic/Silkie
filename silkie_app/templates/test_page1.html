@@ -58,6 +58,10 @@
               a test consisting of 4 proof problems that relate to functional programming. Your task is to complete as 
               many of these problems as you can and then provide feedback on the system.
 
+              <br> 
+              <br>
+        Note: This system has been tested on the following browsers: Chrome (v110.0.5481), Safari (v16.3), Opera (v96.0.4693) and Edge (v110.0.1587)
+
             </h5>
 
             <br>
@@ -70,9 +74,10 @@
               about certain pieces of code.
             </p>
             <p>
-              This system is still under active development. If you find any problem
-              that you wish to report, please email <a href = "mailto: aamohame@andrew.cmu.edu">Abubakr Mohamed</a>.
-              We are awaiting your feedback.
+              This system is still under active development by <a href = "mailto: aamohame@andrew.cmu.edu">Abubakr Mohamed</a>.
+	      If you find any problem that you wish to report, please submit an issue on <a href="https://github.com/meta-logic/Silkie">github</a>.
+
+	      We are awaiting your feedback.
             </p>
             
             <h4>Test Structure:</h4>
@@ -83,7 +88,7 @@
 
             <p>
                 Each question consists of a snippet of SML code and its translation to Coq (the underlying proof assistant). 
-                Then there is a statement of a property that has to be proven about that code snippet (eg. the given function is associativie).
+                Then there is a statement of a property that has to be proven about that code snippet (eg. the given function is associative).
                 The statement is presented as a "Theorem". Your task is to complete the proof of the theorem.
             </p>
 
@@ -127,7 +132,7 @@ Proof. trivial. Qed.</textarea>
               <tr>
                 <td><b>introduce</b>
                 </td>
-                <td>Introduce quantified variables into conxtext.</td>
+                <td>Introduce quantified variables into context.</td>
               </tr>
               <tr>
                 <td><b>induction &ltvar&gt</b>
@@ -295,7 +300,7 @@ Qed.</textarea>
   </div> <!-- /#ide-wrapper -->
 
   <script type="module">
-    import { JsCoq } from '/silkie/static/jscoq+64bit/jscoq.js';
+    import { JsCoq } from '/silkie/static/jscoq+64bit/jscoq-tutorial.js';
 
     if (!localStorage['scratchpad.last_filename'])
       setTimeout(() => document.body.classList.add('welcome'), 1500);

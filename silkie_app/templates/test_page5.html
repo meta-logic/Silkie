@@ -11,6 +11,17 @@
       visibility: hidden;
     }
 
+    #smlCode {
+      border:1px solid black;
+      background-color: lightblue;
+      padding-left: 2em;
+      padding-top: 1em;
+      padding-bottom: 1em;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+    }
+
+
     /* FOUC avoidance */
   </style>
   <link rel="stylesheet" type="text/css" href="/silkie/static/jscoq+64bit/node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -18,11 +29,69 @@
   <link rel="stylesheet" type="text/css" href="/silkie/static/jscoq+64bit/node_modules/katex/dist/katex.min.css">
   <link rel="stylesheet" type="text/css" href="/silkie/static/jscoq+64bit/frontend/classic/css/landing-page.css">
   <link rel="stylesheet" type="text/css" href="/silkie/static/jscoq+64bit/frontend/classic/css/kbd.css">
+
+
+  <script>
+
+    function formatAnswer(s)
+        {
+          let res = []
+
+          let splitted = s.split(/\r|\n/);
+
+          console.log(splitted);
+          for (let i = 0; i < splitted.length; i++)
+          {
+            if (!isNumber(splitted[i]))
+            {
+              res.push(splitted[i])
+            }
+          }
+          console.log(res.join("\n"));
+
+          return res.join("\n");          
+        }
+
+
+        function sendAnswer() {
+        let xhr = new XMLHttpRequest()
+
+        let cs = document.getElementById("answer_area").innerHTML;
+
+        if (document.getElementsByClassName("CodeMirror")[2]){
+          cs = document.getElementsByClassName("CodeMirror")[2].innerText
+        }     
+        console.log(cs);
+
+        cs = formatAnswer(cs);
+        xhr.open("POST", "/silkie/test/answer", true)
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        xhr.send("answer4="+cs+"&csrfmiddlewaretoken="+getCSRFToken());
+        }
+    
+      function getCSRFToken() {
+      let cookies = document.cookie.split(";")
+      for (let i = 0; i < cookies.length; i++) {
+          let c = cookies[i].trim()
+          if (c.startsWith("csrftoken=")) {
+              return c.substring("csrftoken=".length, c.length)
+            }
+          }
+            return "unknown"
+          }
+      
+      function isNumber(value) {
+      if (typeof value === "string") {
+          return !isNaN(value);
+          }
+        }
+    
+  </script>
 </head>
 
 <body class="jscoq-main">
   <div id="ide-wrapper" class="toggled">
-    <div id="code-wrapper">
+    <div id="code-wrapper" style="width: 63vw;">
       <div id="document-wrapper">
         <!------------------------------->
         <!--   N A V   B A R           -->
@@ -48,22 +117,19 @@
                 addition to a list sum function.
             </p>
                 
-<textarea rows="9" cols="30" readonly>
-      fun length ([]: 'a list) = 0
-        | length (x :: l) = 1 + length(l)
+<div id="smlCode">
+      fun length ([]: 'a list) = 0 <br>
+        | length (x :: l) = 1 + length(l) <br> <br>
 
-      fun reverse ([] : 'a list) = []
-        | reverse (x :: l) = reverse (l) @ [x]
+      fun reverse ([] : 'a list) = [] <br>
+        | reverse (x :: l) = reverse (l) @ [x] <br> <br>
 
-      fun sum ([] : int list) = 0
-        | sum (x :: l) = x + sum l
+      fun sum ([] : int list) = 0 <br>
+        | sum (x :: l) = x + sum l <br>
 
-</textarea>
+</div>
 
-<p class="interim">
-  The following is the Coq translation of the functions above:
-</p>
-<textarea class="intro">
+<textarea class="introT">
 From Equations Require Import Equations.
 From intSml Require Import intSml.
 From listSml Require Import listSml.
@@ -88,31 +154,159 @@ Equations sum (x1: @list Z): Z :=
   <b>Your Task:</b>  Prove that the dual function is an involution (i.e dual is its own inverse).
 </p>
 
-<textarea class="intro">
+<textarea class="introT">
 Lemma sum_split : forall (l1 l2 : @list Z), sum(l1 ++ l2) = sum(l1) + sum(l2).
 Admitted.
 </textarea>
 
-<textarea class="code">
 
+{% if reply %}
+
+<textarea class="code" id="answer_area">
+{{reply}}</textarea>
+
+{% else %}
+<textarea class="code" id="answer_area">
 Theorem sum_rev: forall (l : @list Z), sum (reverse (l)) = sum(l).
 Proof.
 
 Qed.</textarea>
 
+{% endif %}
+
           
           </div> <!-- /#panel body -->
           <a style="background-color:blue; display: grid; text-align: center; text-decoration: none; color: inherit;
-          border-style: solid; border-width: 2px; border-color: blue; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="submit">Submit</a>
-          <a style="background-color:red; display: grid; text-align: center; text-decoration: none; color: inherit;
-           border-style: solid; border-width: 2px; border-color: blue; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="3">Back</a>
+           border-style: solid; border-width: 2px; border-color: blue; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" 
+            onclick="sendAnswer()" href="/silkie/test/submit">Submit</a>
+
+          <a style="background-color:red; display: grid; margin-top: 1em; text-align: center; text-decoration: none; color: inherit;
+           border-style: solid; border-width: 2px; border-color: red; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" onclick="sendAnswer()" href="/silkie/test/3">Back</a>
 
 
 <a style="background-color:green; display: grid; margin-top: 1em; text-align: center; text-decoration: none; color: inherit;
-border-style: solid; border-width: 2px; border-color: green; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" href="/test">Tutorial</a>
+border-style: solid; border-width: 2px; border-color: green; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" onclick="sendAnswer()" href="/silkie/test">Tutorial</a>
         </div> <!-- /#document -->
       </div> <!-- /#document-wrapper -->
     </div> <!-- /#code-wrapper -->
+    <div id="document-wrapper" style="width: 30vw;">
+      <!------------------------------->
+      <!--   N A V   B A R           -->
+      <!------------------------------->
+      <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand"><img src="/silkie/static/jscoq+64bit/frontend/classic/images/favicon.png"></a>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!------------------------------->
+
+      <div id="document">
+        <p>
+          Below is a table of some of the most common tactics that you might need to use in 15-150 along with a brief
+          explanation of their meaning:
+        </p>
+
+        <table class="doc-actions">
+          <tr>
+            <th>Tactic</th>
+            <th>Definition</th>
+          </tr>
+          <tr>
+            <td><b>introduce</b>
+            </td>
+            <td>Introduce quantified variables into conxtext.</td>
+          </tr>
+          <tr>
+            <td><b>induction &ltvar&gt</b>
+            </td>
+            <td>Perform structural induction on the variable indicated by &ltvar&gt</td>
+          </tr>
+          <tr>
+            <td><b>simpl</b>
+            </td>
+            <td>Simplify / evaluate mathematical expressions</td>
+          </tr>
+          <tr>
+            <td><b>simp &ltfun&gt</b>
+            </td>
+            <td>Apply / evaluate the function &ltfun&gt</td>
+          </tr>
+          <tr>
+            <td><b>by_math</b>
+            </td>
+            <td>Use to prove trivial arithmetic statements (eg. x + x = 2x)</td>
+          </tr>
+          <tr>
+            <td><b>rewrite &ltS1&gt in &ltS2&gt</b>
+            </td>
+            <td>Use a statement/hypothesis &ltS1&gt rewrite &ltS2&gt</td>
+          </tr>
+          <tr>
+            <td><b>apply &ltS&gt</b>
+            </td>
+            <td>Use a statement/hypothesis &ltS&gt to finish a (sub)goal</td>
+          </tr>
+          <tr>
+            <td><b>contradict</b>
+            </td>
+            <td>Use to finish a (sub)goal when one of the assumptions/hypotheses is a contradiction (eg. false = true)</td>
+          </tr>
+          <tr>
+            <td><b>cases &ltexpr&gt</b>
+            </td>
+            <td>Break the proof into cases based on the possible values of &ltexpr&gt</td>
+          </tr>
+        </table>
+
+        <h4>Quick start</h4>
+
+            <h5>Actions</h5>
+            <table class="doc-actions">
+              <tr>
+                <th>Button</th>
+                <th>Key binding</th>
+                <th>Action</th>
+              </tr>
+              <tr>
+                <td><img src="/silkie/static/jscoq+64bit/frontend/classic/images/power-button-512-black.png" height="20px">
+                </td>
+                <td class="has-kbd"><kbd>F8</kbd></td>
+                <td>Toggles the goal panel.</td>
+              </tr>
+              <tr>
+                <td><img src="/silkie/static/jscoq+64bit/frontend/classic/images/down.png" height="15px"><img
+                    src="/silkie/static/jscoq+64bit/frontend/classic/images/up.png" height="15px"></td>
+                <td class="has-kbd">
+                  <kbd>Alt</kbd>+<kbd>↓</kbd>/<kbd>↑</kbd> or<br />
+                  <kbd>Alt</kbd>+<kbd>N</kbd>/<kbd>P</kbd>
+                </td>
+                <td>Move through the proof.</td>
+              </tr>
+              <tr>
+                <td><img src="/silkie/static/jscoq+64bit/frontend/classic/images/to-cursor.png" height="20px"></td>
+                <td class="has-kbd">
+                  <kbd>Alt</kbd>+<kbd>Enter</kbd> or<br /> <kbd>Ctrl</kbd>+<kbd>Enter</kbd><br />
+                  (⌘ on Mac)
+                </td>
+                <td>Run (or go back) to the current point.</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="has-kbd">
+                  <kbd>Ctrl</kbd>+<img class="symbol-mouse"
+                    src="/silkie/static/jscoq+64bit/frontend/classic/images/pointer.svg">
+                </td>
+                <td>Hover executed statements to peek at the proof state after each step.</td>
+              </tr>
+            </table>
+  
+        </div> <!-- /#panel body -->
+      </div> <!-- /#document -->
   </div> <!-- /#ide-wrapper -->
 
   <script type="module">
@@ -121,7 +315,7 @@ border-style: solid; border-width: 2px; border-color: green; color:white; font-f
     if (!localStorage['scratchpad.last_filename'])
       setTimeout(() => document.body.classList.add('welcome'), 1500);
 
-    var jscoq_ids = ['.intro', '.code'];
+    var jscoq_ids = ['.introT', '.code'];
     var jscoq_opts = {
       implicit_libs: false,
       focus: false,
@@ -135,6 +329,8 @@ border-style: solid; border-width: 2px; border-color: green; color:white; font-f
     JsCoq.start(jscoq_ids, jscoq_opts).then(res => {
       /* Global reference */
       window.coq = res;
+      document.getElementsByClassName("CodeMirror")[0].hidden = true;
+      document.getElementsByClassName("CodeMirror")[1].style.backgroundColor = '#ffcccc';
     });
   </script>
 </body>

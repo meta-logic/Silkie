@@ -68,7 +68,8 @@ export class ProviderContainer {
                 // Init.
                 var testread =  this.options.editor;
 
-                if (element.className == "snippet" || element.className == "intro" )
+                if (element.className == "snippet" || element.className == "intro"
+                || element.className == "introT" )
                 {
                     testread.readOnly = true;
                 }
@@ -76,6 +77,9 @@ export class ProviderContainer {
                 else {
                     testread.readOnly = false;
                 }
+
+                
+
 
                 let cm = new CmCoqProvider(element, testread, this.options.replace, idx);
 
