@@ -5,6 +5,7 @@ tmp_files/*.sml
 tmp_files/*.v
 
 **/.__afs*
+**/*.swp
 
 !silkie_app/
 silkie_app/static/*
